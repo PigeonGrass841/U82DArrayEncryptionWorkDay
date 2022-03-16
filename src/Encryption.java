@@ -47,18 +47,6 @@ public class Encryption {
             {
                 for (int j = 0; j < encryptionKey; j++)
                 {
-                    temp = message[0][i];
-                    for (int k = 0; k < message.length; k++)
-                    {
-                        message[k][i] = message[k + 1][i];
-                    }
-                    message[message.length - 1][i] = temp;
-                }
-            }
-            if (encryptionKey < 0)
-            {
-                for (int j = 0; j < Math.abs(encryptionKey); j++)
-                {
                     temp = message[message.length - 1][i];
                     for (int k = message.length - 1; k > 0; k--)
                     {
@@ -67,18 +55,32 @@ public class Encryption {
                     message[0][i] = temp;
                 }
             }
+            if (encryptionKey < 0)
+            {
+                for (int j = 0; j < Math.abs(encryptionKey); j++)
+                {
+                    temp = message[0][i];
+                    for (int k = 0; k < message.length - 1; k++)
+                    {
+                        message[k][i] = message[k + 1][i];
+                    }
+                    message[message.length - 1][i] = temp;
+                }
+            }
         }
     }
 
     public void encrypt()
     {
-        shiftRows(3);
+        shiftRows(2);
         shiftColumns(5);
+        shiftRows(-7);
     }
 
     public void decrypt()
     {
+        shiftRows(7);
         shiftColumns(-5);
-        shiftRows(-3);
+        shiftRows(-2);
     }
 }
